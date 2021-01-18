@@ -1,14 +1,42 @@
 {
-  "name": "@heymarco/control",
-  "version": "1.0.16",
-  "description": "a base class providing a basic manipulation of controllable HTML element such as <button>, <input>, and <textarea>",
-  "main": "index.js",
+  "name": "@nodestrap/control",
+  "version": "2.0.16",
+  "description": "A base class providing a basic manipulation of controllable HTML element such as <button>, <input>, and <textarea>.",
+  "dependencies": {
+    "@nodestrap/colors": "^2.0.1",
+    "@nodestrap/element": "^2.0.16",
+    "@nodestrap/sass-class-template": "^2.0.2",
+    "@nodestrap/sass-selector": "^2.0.1",
+    "@nodestrap/strip-out": "^2.0.0",
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.21",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.1",
+    "tilde-sass": "^1.0.0",
+    "typescript": "^4.1.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "react-scripts test",
+    "testsass": "tilde-sass --file src/*.scss --outFile test/",
+    "compile": "tilde-sass --file src/*.scss --outFile dist/ --outputStyle compressed"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\](?!@nodestrap[/\\\\].+[/\\\\](dist|src)[/\\\\](.+[/\\\\])*).+[.](js|mjs|jsx|ts|tsx|cjs)$",
+      "^.+[.]module[.](css|sass|scss)$"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heyymarco/control.git"
+    "url": "git+https://github.com/nodestrap/control.git"
   },
   "keywords": [
     "html",
@@ -18,18 +46,10 @@
     "input",
     "manipulation"
   ],
-  "author": "HeyMarco",
+  "author": "nodestrap, heymarco",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/heyymarco/control/issues"
+    "url": "https://github.com/nodestrap/control/issues"
   },
-  "homepage": "https://github.com/heyymarco/control#readme",
-  "dependencies": {
-    "@heymarco/colors": "^1.0.15",
-    "@heymarco/element": "^1.0.13",
-    "@heymarco/sass-class-template": "^1.0.7",
-    "@heymarco/sass-selector": "^1.0.5",
-    "@heymarco/strip-out": "^1.0.0"
-  },
-  "devDependencies": {}
+  "homepage": "https://github.com/nodestrap/control#readme"
 }

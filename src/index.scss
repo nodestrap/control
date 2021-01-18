@@ -2,19 +2,11 @@
 
 
 
-// development:
-// @use "node_modules/@heymarco/element/index"             as base;
-// @use "node_modules/@heymarco/sass-class-template/index" as *;
-// @use "node_modules/@heymarco/sass-selector/index"       as selector;
-// @use "node_modules/@heymarco/strip-out/index"           as strip-out;
-// @use "node_modules/@heymarco/colors/index"              as color;
-
-// production:
-@use "../../../node_modules/@heymarco/element/index"             as base;
-@use "../../../node_modules/@heymarco/sass-class-template/index" as *;
-@use "../../../node_modules/@heymarco/sass-selector/index"       as selector;
-@use "../../../node_modules/@heymarco/strip-out/index"           as strip-out;
-@use "../../../node_modules/@heymarco/colors/index"              as color;
+@use "~@nodestrap/sass-class-template/src/index" as *;
+@use "~@nodestrap/sass-selector/src/index"       as selector;
+@use "~@nodestrap/element/src/index"             as base;
+@use "~@nodestrap/strip-out/src/index"           as strip-out;
+@use "~@nodestrap/colors/src/index"              as color;
 
 
 
