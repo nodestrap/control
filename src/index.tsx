@@ -32,7 +32,7 @@ export default class Control<TProps extends Props, TState extends State> extends
         state.focus   = false;
         state.blur    = false;
 
-        state.actived = props.active ?? true;
+        state.actived = props.active ?? false;
         state.active  = false;
         state.passive = false;
 
