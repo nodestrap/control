@@ -1,44 +1,57 @@
 import React from 'react';
-import Base, { Props as Base_Props, State as Base_State } from '@nodestrap/element/src/index';
+import Base, {
+    VariantSize  as Base_VariantSize,
+    VariantTheme as Base_VariantTheme,
+    Props        as Base_Props,
+    State        as Base_State
+} from '@nodestrap/element/src/index';
 import './index.scss';
 
 
 
+export interface VariantSize  extends Base_VariantSize  { }
+export interface VariantTheme extends Base_VariantTheme { }
+
+
+
 export interface Props extends Base_Props {
-    active?  : boolean;
-    enabled? : boolean;
+    active?     : boolean;
+    enabled?    : boolean;
 }
 
 export interface State extends Base_State {
-    focus    : boolean;
-    blur     : boolean;
+    focus       : boolean;
+    blur        : boolean;
 
-    actived  : boolean;
-    active   : boolean;
-    passive  : boolean;
+    actived?    : boolean;
+    activating  : boolean;
+    passivating : boolean;
 
-    enabled  : boolean;
-    enable   : boolean;
-    disable  : boolean;
+    enabled?    : boolean;
+    enabling    : boolean;
+    disabling   : boolean;
 }
+
+const activeDefault = false;
+const enableDefault = true;
 
 export default class Control<TProps extends Props, TState extends State> extends Base<TProps, TState> {
     constructor(props: TProps) {
         super(props);
 
 
-        const state   = this.state;
+        const state       = this.state;
         
-        state.focus   = false;
-        state.blur    = false;
+        state.focus       = false;
+        state.blur        = false;
 
-        state.actived = props.active ?? false;
-        state.active  = false;
-        state.passive = false;
+        state.actived     = props.active ?? activeDefault;
+        state.activating  = false; // no running animation
+        state.passivating = false; // no running animation
 
-        state.enabled = props.enabled ?? true;
-        state.enable  = false;
-        state.disable = false;
+        state.enabled     = props.enabled ?? enableDefault;
+        state.enabling    = false; // no running animation
+        state.disabling   = false; // no running animation
     }
 
 
@@ -49,7 +62,7 @@ export default class Control<TProps extends Props, TState extends State> extends
      */
     get active(): boolean {
         const state = this.state;
-        return state.actived || state.active || (!state.passive);
+        return state.actived ?? (state.activating || (state.passivating ? false : activeDefault));
     }
 
     /**
@@ -57,12 +70,12 @@ export default class Control<TProps extends Props, TState extends State> extends
      * @param active : set true to activate this element, or false to deactivate it.
      */
     set active(active: boolean) {
-        if (active == this.active) return;
+        if (active == this.active) return; // already the same state => no changing needed
 
         this.setState({
-            actived : false,
-            active  : active,
-            passive : !active,
+            actived     : undefined,
+            activating  : active,
+            passivating : !active,
         });
     }
 
@@ -73,7 +86,7 @@ export default class Control<TProps extends Props, TState extends State> extends
      */
     get enabled(): boolean {
         const state = this.state;
-        return state.enabled || state.enable || (!state.disable);
+        return state.enabled ?? (state.enabling || (state.disabling ? false : enableDefault));
     }
 
     /**
@@ -81,12 +94,12 @@ export default class Control<TProps extends Props, TState extends State> extends
      * @param enabled : set true to enable this element, or false to not enable (disable) it.
      */
     set enabled(enabled: boolean) {
-        if (enabled == this.enabled) return;
+        if (enabled == this.enabled) return; // already the same state => no changing needed
 
         this.setState({
-            enabled : false,
-            enable  : enabled,
-            disable : !enabled,
+            enabled   : undefined,
+            enabling  : enabled,
+            disabling : !enabled,
         });
     }
 
@@ -96,9 +109,14 @@ export default class Control<TProps extends Props, TState extends State> extends
         const state = this.state;
         return [
             super.compositeClassName,
-                                            (state.focus  && ' ')       || (state.blur    && 'blur')     || ' ',
-            (state.actived && 'actived') || (state.active && 'active')  || (state.passive && 'passive')  || ' ',
-            (state.enabled && ' ')       || (state.enable && 'enabled') || (state.disable && 'disabled') || ' ',
+
+            
+                                                      (state.focus      && ' ')       || (state.blur        && 'blur')     || ' ',
+
+            ((state.actived !== undefined) &&
+             (state.actived ? 'actived' : ' '))    || (state.activating && 'active')  || (state.passivating && 'passive')  || ' ',
+
+            ((state.enabled !== undefined) && ' ') || (state.enabling   && 'enabled') || (state.disabling   && 'disabled') || ' ',
         ].join(' ');
     }
 
@@ -135,15 +153,15 @@ export default class Control<TProps extends Props, TState extends State> extends
         super.handleAnimationEnd(e);
 
         this.setState({
-            blur    : false, // clean up blurring animation
+            blur        : false,        // clean up blurring animation
 
-            actived : this.active, // remember this.active into state.actived
-            active  : false, // clean up activating animation
-            passive : false, // clean up passivating animation
+            actived     : this.active, // save the final state
+            activating  : false,        // clean up activating animation
+            passivating : false,        // clean up passivating animation
 
-            enabled : this.enabled, // remember this.enabled into state.enabled
-            enable  : false, // clean up enabling animation
-            disable : false, // clean up disabling animation
+            enabled     : this.enabled, // save the final state
+            enabling    : false,        // clean up enabling animation
+            disabling   : false,        // clean up disabling animation
         });
     }
 
@@ -153,8 +171,9 @@ export default class Control<TProps extends Props, TState extends State> extends
         return (
             <button
                 className={this.compositeClassName}
-
+                
                 disabled={!this.enabled}
+
 
                 onMouseEnter={(e)   => this.handleMouseEnter(e)}
                 onMouseLeave={(e)   => this.handleMouseLeave(e)}
