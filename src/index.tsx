@@ -96,9 +96,9 @@ export default class Control<TProps extends Props, TState extends State> extends
         const state = this.state;
         return [
             super.compositeClassName,
-            (state.focus  && '')        ?? (state.blur    && 'blur')     ?? '',
-            (state.active && 'active')  ?? (state.passive && 'passive')  ?? (state.actived && 'actived') ?? '',
-            (state.enable && 'enabled') ?? (state.disable && 'disabled') ?? '',
+                                            (state.focus  && ' ')       || (state.blur    && 'blur')     || ' ',
+            (state.actived && 'actived') || (state.active && 'active')  || (state.passive && 'passive')  || ' ',
+            (state.enabled && ' ')       || (state.enable && 'enabled') || (state.disable && 'disabled') || ' ',
         ].join(' ');
     }
 
@@ -170,7 +170,7 @@ export default class Control<TProps extends Props, TState extends State> extends
 
                 onAnimationEnd={(e) => this.handleAnimationEnd(e)}
             >
-                {this.props.children || 'abstract class control'}
+                {this.props.children ?? 'abstract class control'}
             </button>
         );
     }

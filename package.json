@@ -1,10 +1,10 @@
 {
   "name": "@nodestrap/control",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "A base class providing a basic manipulation of controllable HTML element such as <button>, <input>, and <textarea>.",
   "dependencies": {
     "@nodestrap/colors": "^2.0.1",
-    "@nodestrap/element": "^2.0.16",
+    "@nodestrap/element": "^2.0.17",
     "@nodestrap/sass-class-template": "^2.0.2",
     "@nodestrap/sass-selector": "^2.0.1",
     "@nodestrap/strip-out": "^2.0.0",
