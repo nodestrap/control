@@ -118,17 +118,17 @@ export default class Control<TProps extends Props, TState extends State> extends
     }
 
     handleMouseDown(e: React.MouseEvent) {
-        if (e.type == 'click') this.active = true;
+        if (e.button == 0) this.active = true;
     }
     handleMouseUp(e: React.MouseEvent) {
-        if (e.type == 'click') this.active = false;
+        if (e.button == 0) this.active = false;
     }
 
     handleKeyDown(e: React.KeyboardEvent) {
-        if (e.type == ' ') this.active = true;
+        if (e.key == ' ') this.active = true;
     }
     handleKeyUp(e: React.KeyboardEvent) {
-        if (e.type == ' ') this.active = false;
+        if (e.key == ' ') this.active = false;
     }
 
     /*override*/ handleAnimationEnd(e: React.AnimationEvent) {
