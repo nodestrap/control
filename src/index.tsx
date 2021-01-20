@@ -70,7 +70,7 @@ export default class Control<TProps extends Props = Props, TState extends State 
      * @param active : set true to activate this element, or false to deactivate it.
      */
     set active(active: boolean) {
-        if (active == this.active) return; // already the same state => no changing needed
+        if (active === this.active) return; // already the same state => no changing needed
 
         this.setState({
             actived     : undefined,
@@ -94,7 +94,7 @@ export default class Control<TProps extends Props = Props, TState extends State 
      * @param enabled : set true to enable this element, or false to not enable (disable) it.
      */
     set enabled(enabled: boolean) {
-        if (enabled == this.enabled) return; // already the same state => no changing needed
+        if (enabled === this.enabled) return; // already the same state => no changing needed
 
         this.setState({
             enabled   : undefined,
@@ -118,7 +118,7 @@ export default class Control<TProps extends Props = Props, TState extends State 
 
             ((state.enabled !== undefined) && ' ') || (state.enabling   && 'enabled') || (state.disabling   && 'disabled') || ' ',
         ]
-        .filter(c => (c != ' ') && (c != '')) // removes blank classes
+        .filter(c => (c !== ' ') && (c !== '')) // removes blank classes
         .join(' '); // combines all classes separated by space
     }
 
@@ -138,17 +138,17 @@ export default class Control<TProps extends Props = Props, TState extends State 
     }
 
     handleMouseDown(e: React.MouseEvent) {
-        if (e.button == 0) this.active = true;
+        if (e.button === 0) this.active = true;
     }
     handleMouseUp(e: React.MouseEvent) {
-        if (e.button == 0) this.active = false;
+        if (e.button === 0) this.active = false;
     }
 
     handleKeyDown(e: React.KeyboardEvent) {
-        if (e.key == ' ') this.active = true;
+        if (e.key === ' ') this.active = true;
     }
     handleKeyUp(e: React.KeyboardEvent) {
-        if (e.key == ' ') this.active = false;
+        if (e.key === ' ') this.active = false;
     }
 
     /*override*/ handleAnimationEnd(e: React.AnimationEvent) {
