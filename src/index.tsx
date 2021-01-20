@@ -35,7 +35,7 @@ export interface State extends Base_State {
 const activeDefault = false;
 const enableDefault = true;
 
-export default class Control<TProps extends Props, TState extends State> extends Base<TProps, TState> {
+export default class Control<TProps extends Props = Props, TState extends State = State> extends Base<TProps, TState> {
     constructor(props: TProps) {
         super(props);
 
@@ -117,7 +117,9 @@ export default class Control<TProps extends Props, TState extends State> extends
              (state.actived ? 'actived' : ' '))    || (state.activating && 'active')  || (state.passivating && 'passive')  || ' ',
 
             ((state.enabled !== undefined) && ' ') || (state.enabling   && 'enabled') || (state.disabling   && 'disabled') || ' ',
-        ].join(' ');
+        ]
+        .filter(c => (c != ' ') && (c != '')) // removes blank classes
+        .join(' '); // combines all classes separated by space
     }
 
 
