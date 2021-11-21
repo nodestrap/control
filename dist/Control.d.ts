@@ -69,7 +69,6 @@ export declare const useArriveLeaveState: <TElement extends HTMLElement = HTMLEl
 export declare const usesControlLayout: () => StyleCollection;
 export declare const usesControlVariants: () => StyleCollection;
 export declare const usesControlStates: () => StyleCollection;
-export declare const usesControl: () => StyleCollection;
 export declare const useControlSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     cursorDisable: string;

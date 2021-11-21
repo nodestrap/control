@@ -581,8 +581,9 @@ export const usesControlStates = () => {
         ]),
     ]);
 };
-export const usesControl = () => {
-    return composition([
+
+export const useControlSheet = createUseSheet(() => [
+    mainComposition([
         imports([
             // layouts:
             usesControlLayout(),
@@ -592,14 +593,6 @@ export const usesControl = () => {
             
             // states:
             usesControlStates(),
-        ]),
-    ]);
-};
-
-export const useControlSheet = createUseSheet(() => [
-    mainComposition([
-        imports([
-            usesControl(),
         ]),
     ]),
 ]);
