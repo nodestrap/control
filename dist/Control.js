@@ -490,25 +490,21 @@ export function Control(props) {
     // fn props:
     const propEnabled = usePropEnabled(props);
     // jsx:
-    return (<Indicator 
-    // other props:
-    {...props} 
-    // classes:
-    mainClass={props.mainClass ?? sheet.main} stateClasses={[...(props.stateClasses ?? []),
+    return (React.createElement(Indicator, { ...props, 
+        // classes:
+        mainClass: props.mainClass ?? sheet.main, stateClasses: [...(props.stateClasses ?? []),
             focusBlurState.class,
             arriveLeaveState.class,
-        ]} 
-    // Control props:
-    {...{
-        // accessibilities:
-        tabIndex: props.tabIndex ?? (propEnabled ? 0 : -1),
-    }} 
-    // events:
-    onFocus={(e) => { props.onFocus?.(e); focusBlurState.handleFocus(); }} onBlur={(e) => { props.onBlur?.(e); focusBlurState.handleBlur(); }} onMouseEnter={(e) => { props.onMouseEnter?.(e); arriveLeaveState.handleMouseEnter(); }} onMouseLeave={(e) => { props.onMouseLeave?.(e); arriveLeaveState.handleMouseLeave(); }} onAnimationEnd={(e) => {
+        ], ...{
+            // accessibilities:
+            tabIndex: props.tabIndex ?? (propEnabled ? 0 : -1),
+        }, 
+        // events:
+        onFocus: (e) => { props.onFocus?.(e); focusBlurState.handleFocus(); }, onBlur: (e) => { props.onBlur?.(e); focusBlurState.handleBlur(); }, onMouseEnter: (e) => { props.onMouseEnter?.(e); arriveLeaveState.handleMouseEnter(); }, onMouseLeave: (e) => { props.onMouseLeave?.(e); arriveLeaveState.handleMouseLeave(); }, onAnimationEnd: (e) => {
             props.onAnimationEnd?.(e);
             // states:
             focusBlurState.handleAnimationEnd(e);
             arriveLeaveState.handleAnimationEnd(e);
-        }}/>);
+        } }));
 }
 export { Control as default };
