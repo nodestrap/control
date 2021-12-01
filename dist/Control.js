@@ -429,16 +429,16 @@ export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
     //#region keyframes
     const keyframesFocus = {
         from: {
-            boxShadow: [[[
-                        ...boxShadows.filter((b) => (b !== boxShadowFocusBlur)),
-                        // boxShadowFocusBlur, // missing the last => let's the browser interpolated it
-                    ].map(fallbackNoneBoxShadow)]],
+            boxShadow: [
+                ...boxShadows.filter((b) => (b !== boxShadowFocusBlur)),
+                // boxShadowFocusBlur, // missing the last => let's the browser interpolated it
+            ].map(fallbackNoneBoxShadow),
         },
         to: {
-            boxShadow: [[[
-                        ...boxShadows.filter((b) => (b !== boxShadowFocusBlur)),
-                        boxShadowFocusBlur, // existing the last => let's the browser interpolated it
-                    ].map(fallbackNoneBoxShadow)]],
+            boxShadow: [
+                ...boxShadows.filter((b) => (b !== boxShadowFocusBlur)),
+                boxShadowFocusBlur, // existing the last => let's the browser interpolated it
+            ].map(fallbackNoneBoxShadow),
         },
     };
     const keyframesBlur = {
