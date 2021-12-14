@@ -594,7 +594,7 @@ export const useControlSheet = createUseSheet(() => [
             usesControlStates(),
         ]),
     ]),
-]);
+], /*sheetId :*/'k8egfpu96l'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 
 
 
