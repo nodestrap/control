@@ -126,7 +126,7 @@ export const useFocusBlurState = (props) => {
     const [animating, setAnimating] = useState(null); // null => no-animation, true => focusing-animation, false => blurring-animation
     const [focusDn, setFocusDn] = useState(false); // uncontrollable (dynamic) state: true => user focus, false => user blur
     // resets:
-    if (!propEnabled) {
+    if (!propEnabled && focusDn) {
         setFocusDn(false); // lost focus because the control is disabled, when the control is re-enabled => still lost focus
     } // if
     /*
@@ -270,7 +270,7 @@ export const useArriveLeaveState = (props, focusBlurState) => {
     const [animating, setAnimating] = useState(null); // null => no-animation, true => arriving-animation, false => leaving-animation
     const [hoverDn, setHoverDn] = useState(false); // uncontrollable (dynamic) state: true => user hover, false => user leave
     // resets:
-    if (!propEnabled) {
+    if (!propEnabled && hoverDn) {
         setHoverDn(false); // lost hover because the control is disabled, when the control is re-enabled => still lost hover
     } // if
     /*

@@ -243,7 +243,7 @@ export const useFocusBlurState  = <TElement extends HTMLElement = HTMLElement>(p
     
     
     // resets:
-    if (!propEnabled) {
+    if (!propEnabled && focusDn) {
         setFocusDn(false); // lost focus because the control is disabled, when the control is re-enabled => still lost focus
     } // if
 
@@ -420,7 +420,7 @@ export const useArriveLeaveState  = <TElement extends HTMLElement = HTMLElement>
     
     
     // resets:
-    if (!propEnabled) {
+    if (!propEnabled && hoverDn) {
         setHoverDn(false); // lost hover because the control is disabled, when the control is re-enabled => still lost hover
     } // if
 
