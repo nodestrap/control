@@ -239,6 +239,13 @@ export const useFocusBlurState  = <TElement extends HTMLElement = HTMLElement>(p
     const [animating, setAnimating] = useState<boolean|null>(null); // null => no-animation, true => focusing-animation, false => blurring-animation
 
     const [focusDn,   setFocusDn  ] = useState<boolean>(false);     // uncontrollable (dynamic) state: true => user focus, false => user blur
+    
+    
+    
+    // resets:
+    if (!propEnabled) {
+        setFocusDn(false); // lost focus because the control is disabled, when the control is re-enabled => still lost focus
+    } // if
 
 
     
@@ -409,6 +416,13 @@ export const useArriveLeaveState  = <TElement extends HTMLElement = HTMLElement>
     const [animating, setAnimating] = useState<boolean|null>(null); // null => no-animation, true => arriving-animation, false => leaving-animation
 
     const [hoverDn,   setHoverDn  ] = useState<boolean>(false);     // uncontrollable (dynamic) state: true => user hover, false => user leave
+    
+    
+    
+    // resets:
+    if (!propEnabled) {
+        setHoverDn(false); // lost hover because the control is disabled, when the control is re-enabled => still lost hover
+    } // if
 
 
 
