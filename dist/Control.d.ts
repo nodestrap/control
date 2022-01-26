@@ -3,9 +3,9 @@ import type { PropEx } from '@cssfn/css-types';
 import { StyleCollection } from '@cssfn/cssfn';
 import { ThemeName } from '@nodestrap/basic';
 import { IndicatorProps } from '@nodestrap/indicator';
-export declare const markActive: () => StyleCollection;
-export declare const usesThemeDefault: (themeName?: ThemeName | null) => StyleCollection;
-export declare const usesThemeActive: (themeName?: ThemeName | null) => StyleCollection;
+export declare const markActive: () => import("@cssfn/cssfn").Rule;
+export declare const usesThemeDefault: (themeName?: ThemeName | null) => import("@cssfn/cssfn").Rule;
+export declare const usesThemeActive: (themeName?: ThemeName | null) => import("@cssfn/cssfn").Rule;
 export interface FocusBlurVars {
     boxShadow: any;
     anim: any;
@@ -22,18 +22,18 @@ export interface FocusBlurVars {
      */
     boxShadowLy: any;
 }
-export declare const isFocused: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isFocusing: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isBlurring: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isBlurred: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isFocus: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isBlur: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isFocusBlurring: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
+export declare const isFocused: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isFocusing: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isBlurring: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isBlurred: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isFocus: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isBlur: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isFocusBlurring: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
 /**
  * Uses focus & blur states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents focus & blur state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents focus & blur state definitions.
  */
-export declare const usesFocusBlurState: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<FocusBlurVars>, import("@cssfn/css-var").ReadonlyDecls<FocusBlurVars>];
+export declare const usesFocusBlurState: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<FocusBlurVars>, import("@cssfn/css-var").ReadonlyDecls<FocusBlurVars>];
 export declare const useFocusBlurState: <TElement extends HTMLElement = HTMLElement>(props: ControlProps<TElement>) => {
     focus: boolean;
     class: string | null;
@@ -45,18 +45,18 @@ export interface ArriveLeaveVars {
     filter: any;
     anim: any;
 }
-export declare const isArrived: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isArriving: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isLeaving: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isLeft: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isArrive: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isLeave: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
-export declare const isArriveLeaving: (styles: StyleCollection) => import("@cssfn/cssfn").RuleEntry;
+export declare const isArrived: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isArriving: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isLeaving: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isLeft: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isArrive: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isLeave: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
+export declare const isArriveLeaving: (styles: StyleCollection) => import("@cssfn/cssfn").Rule;
 /**
  * Uses arrive (hover) & leave states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents arrive (hover) & leave state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents arrive (hover) & leave state definitions.
  */
-export declare const usesArriveLeaveState: () => readonly [() => StyleCollection, import("@cssfn/css-var").ReadonlyRefs<ArriveLeaveVars>, import("@cssfn/css-var").ReadonlyDecls<ArriveLeaveVars>];
+export declare const usesArriveLeaveState: () => readonly [() => import("@cssfn/cssfn").Rule, import("@cssfn/css-var").ReadonlyRefs<ArriveLeaveVars>, import("@cssfn/css-var").ReadonlyDecls<ArriveLeaveVars>];
 export declare const useArriveLeaveState: <TElement extends HTMLElement = HTMLElement>(props: ControlProps<TElement>, focusBlurState: {
     focus: boolean;
 }) => {
@@ -66,9 +66,9 @@ export declare const useArriveLeaveState: <TElement extends HTMLElement = HTMLEl
     handleMouseLeave: () => void;
     handleAnimationEnd: (e: React.AnimationEvent<HTMLElement>) => void;
 };
-export declare const usesControlLayout: () => StyleCollection;
-export declare const usesControlVariants: () => StyleCollection;
-export declare const usesControlStates: () => StyleCollection;
+export declare const usesControlLayout: () => import("@cssfn/cssfn").Rule;
+export declare const usesControlVariants: () => import("@cssfn/cssfn").Rule;
+export declare const usesControlStates: () => import("@cssfn/cssfn").Rule;
 export declare const useControlSheet: import("@cssfn/types").Factory<import("jss").Classes<"main">>;
 export declare const cssProps: import("@cssfn/css-config").Refs<{
     cursorDisable: string;

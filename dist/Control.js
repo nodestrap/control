@@ -2,11 +2,11 @@
 import { default as React, useState, } from 'react'; // base technology of our nodestrap components
 import { 
 // compositions:
-composition, mainComposition, imports, 
-// layouts:
-layout, vars, 
+mainComposition, 
+// styles:
+style, vars, imports, 
 // rules:
-states, rule, } from '@cssfn/cssfn'; // cssfn core
+rule, states, } from '@cssfn/cssfn'; // cssfn core
 import { 
 // hooks:
 createUseSheet, } from '@cssfn/react-cssfn'; // cssfn for react
@@ -32,12 +32,12 @@ usesIndicatorLayout, usesIndicatorVariants, usesIndicatorStates, Indicator, } fr
 // hooks:
 // states:
 //#region activePassive
-export const markActive = () => composition([
-    imports([
+export const markActive = () => style({
+    ...imports([
         indicatorMarkActive(),
         usesThemeActive(), // switch to active theme
     ]),
-]);
+});
 // change default parameter from `null` to 'secondary':
 export const usesThemeDefault = (themeName = 'secondary') => basicUsesThemeDefault(themeName);
 // change default parameter from 'secondary' to 'primary':
@@ -71,14 +71,14 @@ export const isBlur = (styles) => rule([selectorIsBlurring, selectorIsBlurred], 
 export const isFocusBlurring = (styles) => rule([selectorIsFocusing, selectorIsFocused, selectorIsBlurring], styles);
 /**
  * Uses focus & blur states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents focus & blur state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents focus & blur state definitions.
  */
 export const usesFocusBlurState = () => {
     // dependencies:
     const [, themeRefs] = usesThemeVariant();
     return [
-        () => composition([
-            vars({
+        () => style({
+            ...vars({
                 [focusBlurDecls.boxShadowFn]: fallbacks(themeRefs.focusImpt, // first  priority
                 themeRefs.focus, // second priority
                 themeRefs.focusCond, // third  priority
@@ -94,26 +94,26 @@ export const usesFocusBlurState = () => {
                         focusBlurRefs.boxShadowCol,
                     ]],
             }),
-            states([
-                isFocused([
-                    vars({
+            ...states([
+                isFocused({
+                    ...vars({
                         [focusBlurDecls.boxShadow]: focusBlurRefs.boxShadowLy,
                     }),
-                ]),
-                isFocusing([
-                    vars({
+                }),
+                isFocusing({
+                    ...vars({
                         [focusBlurDecls.boxShadow]: focusBlurRefs.boxShadowLy,
                         [focusBlurDecls.anim]: cssProps.animFocus,
                     }),
-                ]),
-                isBlurring([
-                    vars({
+                }),
+                isBlurring({
+                    ...vars({
                         [focusBlurDecls.boxShadow]: focusBlurRefs.boxShadowLy,
                         [focusBlurDecls.anim]: cssProps.animBlur,
                     }),
-                ]),
+                }),
             ]),
-        ]),
+        }),
         focusBlurRefs,
         focusBlurDecls,
     ];
@@ -233,31 +233,31 @@ export const isLeave = (styles) => rule([selectorIsLeaving, selectorIsLeft], sty
 export const isArriveLeaving = (styles) => rule([selectorIsArriving, selectorIsArrived, selectorIsLeaving], styles);
 /**
  * Uses arrive (hover) & leave states.
- * @returns A `[Factory<StyleCollection>, ReadonlyRefs, ReadonlyDecls]` represents arrive (hover) & leave state definitions.
+ * @returns A `[Factory<Rule>, ReadonlyRefs, ReadonlyDecls]` represents arrive (hover) & leave state definitions.
  */
 export const usesArriveLeaveState = () => {
     return [
-        () => composition([
-            states([
-                isArrived([
-                    vars({
+        () => style({
+            ...states([
+                isArrived({
+                    ...vars({
                         [arriveLeaveDecls.filter]: cssProps.filterArrive,
                     }),
-                ]),
-                isArriving([
-                    vars({
+                }),
+                isArriving({
+                    ...vars({
                         [arriveLeaveDecls.filter]: cssProps.filterArrive,
                         [arriveLeaveDecls.anim]: cssProps.animArrive,
                     }),
-                ]),
-                isLeaving([
-                    vars({
+                }),
+                isLeaving({
+                    ...vars({
                         [arriveLeaveDecls.filter]: cssProps.filterArrive,
                         [arriveLeaveDecls.anim]: cssProps.animLeave,
                     }),
-                ]),
+                }),
             ]),
-        ]),
+        }),
         arriveLeaveRefs,
         arriveLeaveDecls,
     ];
@@ -334,8 +334,8 @@ export const useArriveLeaveState = (props, focusBlurState) => {
 //#endregion arriveLeave
 // styles:
 export const usesControlLayout = () => {
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // resets:
             stripoutControl(),
             // layouts:
@@ -343,88 +343,80 @@ export const usesControlLayout = () => {
             // colors:
             usesThemeDefault(),
         ]),
-        layout({
+        ...style({
+            // positions:
+            position: 'relative',
             // customize:
             ...usesGeneralProps(cssProps), // apply general cssProps
         }),
-    ]);
+    });
 };
 export const usesControlVariants = () => {
     // dependencies:
     // layouts:
-    const [sizes] = usesSizeVariant((sizeName) => composition([
-        layout({
-            // overwrites propName = propName{SizeName}:
-            ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-        }),
-    ]));
-    return composition([
-        imports([
+    const [sizes] = usesSizeVariant((sizeName) => style({
+        // overwrites propName = propName{SizeName}:
+        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
+    }));
+    return style({
+        ...imports([
             // variants:
             usesIndicatorVariants(),
             // layouts:
             sizes(),
         ]),
-    ]);
+    });
 };
 export const usesControlStates = () => {
     // dependencies:
     // states:
     const [focusBlur] = usesFocusBlurState();
     const [arriveLeave] = usesArriveLeaveState();
-    return composition([
-        imports([
+    return style({
+        ...imports([
             // states:
             usesIndicatorStates(),
             focusBlur(),
             arriveLeave(),
         ]),
-        states([
-            isDisable([
-                layout({
-                    // accessibilities:
-                    cursor: cssProps.cursorDisable,
-                }),
-            ]),
-            isActive([
-                imports([
+        ...states([
+            isDisable({
+                // accessibilities:
+                cursor: cssProps.cursorDisable,
+            }),
+            isActive({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isFocus([
-                imports([
+            }),
+            isFocus({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isArrive([
-                imports([
+            }),
+            isArrive({
+                ...imports([
                     markActive(),
                 ]),
-            ]),
-            isFocus([
-                layout({
-                    zIndex: 2, // prevents boxShadowFocus from clipping
-                }),
-            ]),
-            isBlurring([
-                layout({
-                    zIndex: 1, // prevents boxShadowFocus from clipping but below the active one
-                }),
-            ]),
+            }),
+            isFocus({
+                zIndex: 2, // prevents boxShadowFocus from clipping
+            }),
+            isBlurring({
+                zIndex: 1, // prevents boxShadowFocus from clipping but below the active one
+            }),
         ]),
-    ]);
+    });
 };
 export const useControlSheet = createUseSheet(() => [
-    mainComposition([
-        imports([
-            // layouts:
-            usesControlLayout(),
-            // variants:
-            usesControlVariants(),
-            // states:
-            usesControlStates(),
-        ]),
-    ]),
+    mainComposition(imports([
+        // layouts:
+        usesControlLayout(),
+        // variants:
+        usesControlVariants(),
+        // states:
+        usesControlStates(),
+    ])),
 ], /*sheetId :*/ 'k8egfpu96l'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 // configs:
 export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
